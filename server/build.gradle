@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.2.RELEASE'
+    id 'java'
+}
+
+jar {
+    baseName = 'server'
+    version =  '1.0'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url 'http://repo.spring.io/plugins-release' }
+}
+
+dependencies {
+    compile project(':web')//server模块依赖web模块
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-devtools")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+//任务：生成src目录
+task "create-dirs" << {
+    sourceSets*.java.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
